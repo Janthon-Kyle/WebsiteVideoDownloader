@@ -29,6 +29,11 @@ Partial Class Main
         Me.tbWebsiteURL = New System.Windows.Forms.TextBox()
         Me.functionTab = New System.Windows.Forms.TabControl()
         Me.manageTabPage = New System.Windows.Forms.TabPage()
+        Me.lbProxyAddr = New System.Windows.Forms.Label()
+        Me.lbProxyPort = New System.Windows.Forms.Label()
+        Me.tbProxyPort = New System.Windows.Forms.TextBox()
+        Me.tbProxyAddr = New System.Windows.Forms.TextBox()
+        Me.chkbProxy = New System.Windows.Forms.CheckBox()
         Me.parseProgressBar = New System.Windows.Forms.ProgressBar()
         Me.lbVideoLink = New System.Windows.Forms.Label()
         Me.btDownVideo = New System.Windows.Forms.Button()
@@ -80,6 +85,11 @@ Partial Class Main
         '
         'manageTabPage
         '
+        Me.manageTabPage.Controls.Add(Me.lbProxyAddr)
+        Me.manageTabPage.Controls.Add(Me.lbProxyPort)
+        Me.manageTabPage.Controls.Add(Me.tbProxyPort)
+        Me.manageTabPage.Controls.Add(Me.tbProxyAddr)
+        Me.manageTabPage.Controls.Add(Me.chkbProxy)
         Me.manageTabPage.Controls.Add(Me.parseProgressBar)
         Me.manageTabPage.Controls.Add(Me.lbVideoLink)
         Me.manageTabPage.Controls.Add(Me.lbWebSiteURL)
@@ -95,6 +105,52 @@ Partial Class Main
         Me.manageTabPage.TabIndex = 0
         Me.manageTabPage.Text = "任务管理"
         Me.manageTabPage.UseVisualStyleBackColor = True
+        '
+        'lbProxyAddr
+        '
+        Me.lbProxyAddr.AutoSize = True
+        Me.lbProxyAddr.Location = New System.Drawing.Point(155, 231)
+        Me.lbProxyAddr.Name = "lbProxyAddr"
+        Me.lbProxyAddr.Size = New System.Drawing.Size(47, 12)
+        Me.lbProxyAddr.TabIndex = 10
+        Me.lbProxyAddr.Text = "服务器:"
+        '
+        'lbProxyPort
+        '
+        Me.lbProxyPort.AutoSize = True
+        Me.lbProxyPort.Location = New System.Drawing.Point(314, 231)
+        Me.lbProxyPort.Name = "lbProxyPort"
+        Me.lbProxyPort.Size = New System.Drawing.Size(35, 12)
+        Me.lbProxyPort.TabIndex = 9
+        Me.lbProxyPort.Text = "端口:"
+        '
+        'tbProxyPort
+        '
+        Me.tbProxyPort.Enabled = False
+        Me.tbProxyPort.Location = New System.Drawing.Point(355, 227)
+        Me.tbProxyPort.Name = "tbProxyPort"
+        Me.tbProxyPort.Size = New System.Drawing.Size(42, 21)
+        Me.tbProxyPort.TabIndex = 8
+        Me.tbProxyPort.Text = "8080"
+        '
+        'tbProxyAddr
+        '
+        Me.tbProxyAddr.Enabled = False
+        Me.tbProxyAddr.Location = New System.Drawing.Point(208, 227)
+        Me.tbProxyAddr.Name = "tbProxyAddr"
+        Me.tbProxyAddr.Size = New System.Drawing.Size(100, 21)
+        Me.tbProxyAddr.TabIndex = 8
+        Me.tbProxyAddr.Text = "127.0.0.1"
+        '
+        'chkbProxy
+        '
+        Me.chkbProxy.AutoSize = True
+        Me.chkbProxy.Location = New System.Drawing.Point(6, 231)
+        Me.chkbProxy.Name = "chkbProxy"
+        Me.chkbProxy.Size = New System.Drawing.Size(72, 16)
+        Me.chkbProxy.TabIndex = 7
+        Me.chkbProxy.Text = "使用代理"
+        Me.chkbProxy.UseVisualStyleBackColor = True
         '
         'parseProgressBar
         '
@@ -188,4 +244,9 @@ Partial Class Main
     Friend WithEvents bgWorker As System.ComponentModel.BackgroundWorker
     Friend WithEvents prgTimer As Timer
     Friend WithEvents parseProgressBar As ProgressBar
+    Friend WithEvents lbProxyAddr As Label
+    Friend WithEvents lbProxyPort As Label
+    Friend WithEvents tbProxyPort As TextBox
+    Friend WithEvents tbProxyAddr As TextBox
+    Friend WithEvents chkbProxy As CheckBox
 End Class

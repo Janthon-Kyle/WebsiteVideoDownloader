@@ -1,5 +1,4 @@
 ﻿Imports System.ComponentModel
-Imports System.IO
 
 Public Class Main
 
@@ -12,7 +11,12 @@ Public Class Main
         Dim procURLParse As New Process
         With procURLParse.StartInfo
             .FileName = (ParseToolPath)
-            .Arguments = " -g " + websiteURL
+            '判断是否启用代理，以改变运行参数
+            If chkbProxy.CheckState = CheckState.Checked Then
+                .Arguments = " -g " + websiteURL + " --proxy http://" + tbProxyAddr.Text + ":" + tbProxyPort.Text
+            Else
+                .Arguments = " -g " + websiteURL
+            End If
             .UseShellExecute = False
             .RedirectStandardInput = True
             .RedirectStandardOutput = True
@@ -32,11 +36,18 @@ Public Class Main
     '程序启动时释放链接解析工具到运行目录
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles Me.Load
         ParseToolPath = Application.StartupPath + "\URLParse.exe"
-        Dim parseRes() As Byte = My.Resources.ThirdPartyRes.URLParse
-        Dim thirdAppFile As IO.Stream = File.Create(ParseToolPath)
-        thirdAppFile.Write(parseRes, 0, parseRes.Length)
-        thirdAppFile.Close()
-        SetAttr(ParseToolPath, FileAttribute.Hidden)
+        '旧代码IO流写入
+        'Dim parseRes() As Byte = My.Resources.ThirdPartyRes.URLParse
+        'Dim thirdAppFile As IO.Stream = File.Create(ParseToolPath)
+        'thirdAppFile.Write(parseRes, 0, parseRes.Length)
+        'thirdAppFile.Close()
+        'SetAttr(ParseToolPath, FileAttribute.Hidden)
+
+        '新代码使用My.Computer.FileSystem写入
+        My.Computer.FileSystem.WriteAllBytes(ParseToolPath, My.Resources.ThirdPartyRes.URLParse, False)
+        If My.Computer.FileSystem.FileExists(ParseToolPath) = True Then
+            SetAttr(ParseToolPath, FileAttribute.Hidden)
+        End If
     End Sub
 
     '程序退出时删除连接解析工具
@@ -74,5 +85,15 @@ Public Class Main
     Private Sub BtClean_Click(sender As Object, e As EventArgs) Handles btClean.Click
         tbWebsiteURL.ResetText()
         tbVideoLink.ResetText()
+    End Sub
+
+    Private Sub ChkbProxy_CheckedChanged(sender As Object, e As EventArgs) Handles chkbProxy.CheckedChanged
+        If chkbProxy.CheckState = CheckState.Checked Then
+            tbProxyAddr.Enabled = True
+            tbProxyPort.Enabled = True
+        Else
+            tbProxyAddr.Enabled = False
+            tbProxyPort.Enabled = False
+        End If
     End Sub
 End Class
